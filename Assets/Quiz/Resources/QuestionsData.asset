@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f611d797432e3f846885b2b12fde5f35, type: 3}
+  m_Name: QuestionsData
+  m_EditorClassIdentifier: 
+  questions:
+  - questionInfo: Which is the largest living bird on Earth?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Emu
+    - Ostrich
+    - Albatross
+    - Siberian Crane
+    correctAns: Ostrich
+  - questionInfo: For how many years have the dinosaurs been extinct?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - About 25 million years
+    - About 65 milion years
+    - About 100 million years
+    - About 135 million years
+    correctAns: About 65 milion years
+  - questionInfo: Quess the animal?
+    questionType: 1
+    questionImage: {fileID: 21300000, guid: c0bb50585e74c4e42afe23172c92e36f, type: 3}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Monkey
+    - Shark
+    - Porcupine
+    - Elephant
+    correctAns: Elephant
+  - questionInfo: Which amongst the following is the largest mammal?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Elephant
+    - Whale
+    - Dinosaur
+    - Rhinoceros
+    correctAns: Whale
+  - questionInfo: Which part becomes modified as the tusk of elephant?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Canine
+    - Premolar
+    - Second Incisor
+    - Molar
+    correctAns: Second Incisor
+  - questionInfo: Which of the following are warm-blooded animals?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Whales
+    - Whale sharks
+    - Alytes
+    - Draco
+    correctAns: Whales
+  - questionInfo: Quess the animal?
+    questionType: 1
+    questionImage: {fileID: 21300000, guid: 5d00affa1ba994440b82b4f1c20c72fb, type: 3}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Rabbit
+    - Spider
+    - Polar Bear
+    - Cheeta
+    correctAns: Rabbit
+  - questionInfo: Which phenomenon do bats or dolphins use to find prey, predators
+      or obstacles?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Refraction of sound
+    - Formation of beats
+    - Scattering
+    - Echo location
+    correctAns: Echo location
+  - questionInfo: Which of the following is the smallest bird?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Pigeon
+    - Parrot
+    - Humming bird
+    - House sparrow
+    correctAns: Humming bird
+  - questionInfo: Which one among the following lays eggs and does not produce young
+      ones directly?
+    questionType: 0
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Echidna
+    - Kangaroo
+    - Porcupine
+    - Whale
+    correctAns: Echidna
+  - questionInfo: Quess the animal?
+    questionType: 1
+    questionImage: {fileID: 21300000, guid: 7a07241ec9d50c14583bf87319426eb2, type: 3}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 0}
+    options:
+    - Lion
+    - Panda
+    - Tiger
+    - Whale
+    correctAns: Tiger
+  - questionInfo: Quess the animal?
+    questionType: 3
+    questionImage: {fileID: 21300000, guid: 7a07241ec9d50c14583bf87319426eb2, type: 3}
+    audioClip: {fileID: 0}
+    videoClip: {fileID: 32900000, guid: 532166cfd4456b040bf2f9d173ceb58c, type: 3}
+    options:
+    - Dog
+    - Cat
+    - Monkey
+    - Whale
+    correctAns: Cat
+  - questionInfo: Quess the animal?
+    questionType: 2
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: e2e9865d907fe4b4db6b70550ccee95a, type: 3}
+    videoClip: {fileID: 0}
+    options:
+    - Dog
+    - Elephant
+    - Pig
+    - Snake
+    correctAns: Pig
+  - questionInfo: Quess the animal?
+    questionType: 2
+    questionImage: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 01f1b7bf136bb2e4491ff216fad6d684, type: 3}
+    videoClip: {fileID: 0}
+    options:
+    - Kangaroo
+    - Wolf
+    - Dolphine
+    - Frog
+    correctAns: Wolf
