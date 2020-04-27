@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class QuizGameUI : MonoBehaviour
 {
 #pragma warning disable 649
     [SerializeField] private QuizManager quizManager;               //ref to the QuizManager script
+    [SerializeField] private Text scoreText, timerText;
+    [SerializeField] private List<Image> lifeImageList;
+    [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private Color correctCol, wrongCol, normalCol; //color of buttons
     [SerializeField] private Image questionImg;                     //image component to show image
     [SerializeField] private UnityEngine.Video.VideoPlayer questionVideo;   //to show video
@@ -19,6 +23,10 @@ public class QuizGameUI : MonoBehaviour
     private Question question;          //store current question data
     private bool answered = false;      //bool to keep track if answered or not
 
+    public Text TimerText { get => timerText; }                     //getter
+    public Text ScoreText { get => scoreText; }                     //getter
+    public GameObject GameOverPanel { get => gameOverPanel; }                     //getter
+
     private void Start()
     {   //add the listner to all the buttons
         for (int i = 0; i < options.Count; i++)
@@ -26,6 +34,8 @@ public class QuizGameUI : MonoBehaviour
             Button localBtn = options[i];
             localBtn.onClick.AddListener(() => OnClick(localBtn));
         }
+
+
     }
     /// <summary>
     /// Method which populate the question on the screen
@@ -87,6 +97,11 @@ public class QuizGameUI : MonoBehaviour
 
     }
 
+    public void ReduceLife(int remainingLife)
+    {
+        lifeImageList[remainingLife].color = Color.red;
+    }
+
     /// <summary>
     /// IEnumerator to repeate the audio after some time
     /// </summary>
@@ -138,6 +153,11 @@ public class QuizGameUI : MonoBehaviour
                 btn.image.color = wrongCol;
             }
         }
+    }
+
+    public void RestryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

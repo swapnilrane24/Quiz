@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,19 +10,29 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private QuizGameUI quizGameUI;
     //ref to the scriptableobject file
     [SerializeField] private QuizDataScriptable dataScriptable;
+    [SerializeField] private float timeInSeconds;
 #pragma warning restore 649
     //questions data
     private List<Question> questions;
     //current question data
     private Question selectedQuetion = new Question();
+    private int gameScore;
+    private int lifesRemaining;
+    private float currentTime;
+
+    private GameStatus gameStatus = GameStatus.NEXT;
 
     private void Start()
     {
+        gameScore = 0;
+        lifesRemaining = 3;
+        currentTime = timeInSeconds;
         //set the questions data
         questions = new List<Question>();
         questions.AddRange(dataScriptable.questions);
         //select the question
         SelectQuestion();
+        gameStatus = GameStatus.PLAYING;
     }
 
     /// <summary>
@@ -30,11 +41,33 @@ public class QuizManager : MonoBehaviour
     private void SelectQuestion()
     {
         //get the random number
-        int val = Random.Range(0, questions.Count);
+        int val = UnityEngine.Random.Range(0, questions.Count);
         //set the selectedQuetion
         selectedQuetion = questions[val];
         //send the question to quizGameUI
         quizGameUI.SetQuestion(selectedQuetion);
+    }
+
+    private void Update()
+    {
+        if (gameStatus == GameStatus.PLAYING)
+        {
+            currentTime -= Time.deltaTime;
+            SetTime(currentTime);
+        }
+    }
+
+    void SetTime(float value)
+    {
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);                       //set the time value
+        quizGameUI.TimerText.text = time.ToString("mm':'ss");   //convert time to Time format
+
+        if (currentTime <= 0)
+        {
+            //Game Over
+            gameStatus = GameStatus.NEXT;
+            quizGameUI.GameOverPanel.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -51,13 +84,28 @@ public class QuizManager : MonoBehaviour
         {
             //Yes, Ans is correct
             correct = true;
+            gameScore += 50;
+            quizGameUI.ScoreText.text = "Score:" + gameScore;
         }
         else
         {
             //No, Ans is wrong
+            //Reduce Life
+            lifesRemaining--;
+            quizGameUI.ReduceLife(lifesRemaining);
+
+            if (lifesRemaining == 0)
+            {
+                gameStatus = GameStatus.NEXT;
+                quizGameUI.GameOverPanel.SetActive(true);
+            }
         }
-        //call SelectQuestion method again after 1s
-        Invoke("SelectQuestion", 0.4f);
+
+        if (gameStatus == GameStatus.PLAYING)
+        {
+            //call SelectQuestion method again after 1s
+            Invoke("SelectQuestion", 0.4f);
+        }
         //return the value of correct bool
         return correct;
     }
@@ -83,4 +131,11 @@ public enum QuestionType
     IMAGE,
     AUDIO,
     VIDEO
+}
+
+[SerializeField]
+public enum GameStatus
+{
+    PLAYING,
+    NEXT
 }
