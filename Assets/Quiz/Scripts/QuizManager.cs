@@ -9,7 +9,7 @@ public class QuizManager : MonoBehaviour
     //ref to the QuizGameUI script
     [SerializeField] private QuizGameUI quizGameUI;
     //ref to the scriptableobject file
-    [SerializeField] private QuizDataScriptable dataScriptable;
+    [SerializeField] private List<QuizDataScriptable> quizDataList;
     [SerializeField] private float timeInSeconds;
 #pragma warning restore 649
     //questions data
@@ -19,16 +19,20 @@ public class QuizManager : MonoBehaviour
     private int gameScore;
     private int lifesRemaining;
     private float currentTime;
+    private QuizDataScriptable dataScriptable;
 
     private GameStatus gameStatus = GameStatus.NEXT;
 
-    private void Start()
+    public GameStatus GameStatus { get { return gameStatus; } }
+
+    public void StartGame(int categoryIndex)
     {
         gameScore = 0;
         lifesRemaining = 3;
         currentTime = timeInSeconds;
         //set the questions data
         questions = new List<Question>();
+        dataScriptable = quizDataList[categoryIndex];
         questions.AddRange(dataScriptable.questions);
         //select the question
         SelectQuestion();
@@ -46,6 +50,8 @@ public class QuizManager : MonoBehaviour
         selectedQuetion = questions[val];
         //send the question to quizGameUI
         quizGameUI.SetQuestion(selectedQuetion);
+
+        questions.RemoveAt(val);
     }
 
     private void Update()
@@ -103,8 +109,16 @@ public class QuizManager : MonoBehaviour
 
         if (gameStatus == GameStatus.PLAYING)
         {
-            //call SelectQuestion method again after 1s
-            Invoke("SelectQuestion", 0.4f);
+            if (questions.Count > 0)
+            {
+                //call SelectQuestion method again after 1s
+                Invoke("SelectQuestion", 0.4f);
+            }
+            else
+            {
+                gameStatus = GameStatus.NEXT;
+                quizGameUI.GameOverPanel.SetActive(true);
+            }
         }
         //return the value of correct bool
         return correct;

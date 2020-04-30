@@ -10,13 +10,14 @@ public class QuizGameUI : MonoBehaviour
     [SerializeField] private QuizManager quizManager;               //ref to the QuizManager script
     [SerializeField] private Text scoreText, timerText;
     [SerializeField] private List<Image> lifeImageList;
-    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameOverPanel, mainMenu, gamePanel;
     [SerializeField] private Color correctCol, wrongCol, normalCol; //color of buttons
     [SerializeField] private Image questionImg;                     //image component to show image
     [SerializeField] private UnityEngine.Video.VideoPlayer questionVideo;   //to show video
     [SerializeField] private AudioSource questionAudio;             //audio source for audio clip
     [SerializeField] private Text questionInfoText;                 //text to show question
     [SerializeField] private List<Button> options;                  //options button reference
+    [SerializeField] private List<Button> uiButtons;
 #pragma warning restore 649
 
     private float audioLength;          //store audio length
@@ -35,6 +36,11 @@ public class QuizGameUI : MonoBehaviour
             localBtn.onClick.AddListener(() => OnClick(localBtn));
         }
 
+        for (int i = 0; i < uiButtons.Count; i++)
+        {
+            Button localBtn = uiButtons[i];
+            localBtn.onClick.AddListener(() => OnClick(localBtn));
+        }
 
     }
     /// <summary>
@@ -133,25 +139,47 @@ public class QuizGameUI : MonoBehaviour
     /// <param name="btn">ref to the button object</param>
     void OnClick(Button btn)
     {
-        //if answered is false
-        if (!answered)
+        if (quizManager.GameStatus == GameStatus.PLAYING)
         {
-            //set answered true
-            answered = true;
-            //get the bool value
-            bool val = quizManager.Answer(btn.name);
+            //if answered is false
+            if (!answered)
+            {
+                //set answered true
+                answered = true;
+                //get the bool value
+                bool val = quizManager.Answer(btn.name);
 
-            //if its true
-            if (val)
-            {
-                //set color to correct
-                btn.image.color = correctCol;
+                //if its true
+                if (val)
+                {
+                    //set color to correct
+                    btn.image.color = correctCol;
+                }
+                else
+                {
+                    //else set it to wrong color
+                    btn.image.color = wrongCol;
+                }
             }
-            else
-            {
-                //else set it to wrong color
-                btn.image.color = wrongCol;
-            }
+        }
+
+        switch (btn.name)
+        {
+            case "Animal":
+                quizManager.StartGame(0);
+                mainMenu.SetActive(false);
+                gamePanel.SetActive(true);
+                break;
+            case "Bird":
+                quizManager.StartGame(1);
+                mainMenu.SetActive(false);
+                gamePanel.SetActive(true);
+                break;
+            case "Mix":
+                quizManager.StartGame(2);
+                mainMenu.SetActive(false);
+                gamePanel.SetActive(true);
+                break;
         }
     }
 
