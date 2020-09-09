@@ -135,7 +135,7 @@ public class QuizManager : MonoBehaviour
         quizGameUI.GameOverPanel.SetActive(true);
 
         //fi you want to save only the highest score then compare the current score with saved score and if more save the new score
-        //eg:- correctAnswerCount > PlayerPrefs.GetInt(currentCategory) then call below line
+        //eg:- if correctAnswerCount > PlayerPrefs.GetInt(currentCategory) then call below line
 
         //Save the score
         PlayerPrefs.SetInt(currentCategory, correctAnswerCount); //save the score for this category
