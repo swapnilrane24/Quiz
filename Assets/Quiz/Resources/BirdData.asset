@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f611d797432e3f846885b2b12fde5f35, type: 3}
   m_Name: BirdData
   m_EditorClassIdentifier: 
+  categoryName: Bird
   questions:
   - questionInfo: What is the fastest bird on two legs?
     questionType: 0

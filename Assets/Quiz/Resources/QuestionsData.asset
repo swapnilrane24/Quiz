@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f611d797432e3f846885b2b12fde5f35, type: 3}
   m_Name: QuestionsData
   m_EditorClassIdentifier: 
+  categoryName: Mix
   questions:
   - questionInfo: Which is the largest living bird on Earth?
     questionType: 0

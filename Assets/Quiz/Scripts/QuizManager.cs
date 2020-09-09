@@ -12,6 +12,9 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private List<QuizDataScriptable> quizDataList;
     [SerializeField] private float timeInSeconds;
 #pragma warning restore 649
+
+    private string currentCategory = "";
+    private int correctAnswerCount = 0;
     //questions data
     private List<Question> questions;
     //current question data
@@ -25,8 +28,12 @@ public class QuizManager : MonoBehaviour
 
     public GameStatus GameStatus { get { return gameStatus; } }
 
-    public void StartGame(int categoryIndex)
+    public List<QuizDataScriptable> QuizData { get => quizDataList; }
+
+    public void StartGame(int categoryIndex, string category)
     {
+        currentCategory = category;
+        correctAnswerCount = 0;
         gameScore = 0;
         lifesRemaining = 3;
         currentTime = timeInSeconds;
@@ -71,8 +78,7 @@ public class QuizManager : MonoBehaviour
         if (currentTime <= 0)
         {
             //Game Over
-            gameStatus = GameStatus.NEXT;
-            quizGameUI.GameOverPanel.SetActive(true);
+            GameEnd();
         }
     }
 
@@ -89,6 +95,7 @@ public class QuizManager : MonoBehaviour
         if (selectedQuetion.correctAns == selectedOption)
         {
             //Yes, Ans is correct
+            correctAnswerCount++;
             correct = true;
             gameScore += 50;
             quizGameUI.ScoreText.text = "Score:" + gameScore;
@@ -102,8 +109,7 @@ public class QuizManager : MonoBehaviour
 
             if (lifesRemaining == 0)
             {
-                gameStatus = GameStatus.NEXT;
-                quizGameUI.GameOverPanel.SetActive(true);
+                GameEnd();
             }
         }
 
@@ -116,12 +122,23 @@ public class QuizManager : MonoBehaviour
             }
             else
             {
-                gameStatus = GameStatus.NEXT;
-                quizGameUI.GameOverPanel.SetActive(true);
+                GameEnd();
             }
         }
         //return the value of correct bool
         return correct;
+    }
+
+    private void GameEnd()
+    {
+        gameStatus = GameStatus.NEXT;
+        quizGameUI.GameOverPanel.SetActive(true);
+
+        //fi you want to save only the highest score then compare the current score with saved score and if more save the new score
+        //eg:- correctAnswerCount > PlayerPrefs.GetInt(currentCategory) then call below line
+
+        //Save the score
+        PlayerPrefs.SetInt(currentCategory, correctAnswerCount); //save the score for this category
     }
 }
 
